@@ -61,7 +61,7 @@ function Pipes() {
     ["Sleeve-level data in firm systems", "Lots, cash and models for every SWP / AAP sub-account, fed from the trading platform and overlay into firm records, so advisors, reporting and billing see the same thing."],
     ["One security master with look-through", "Every holding maps to one record; funds carry constituents. That is what turns 'four positions' into 'one Apple exposure'."],
     ["Household policy objects", "Target, gain budget and restrictions stored once at the person level and consumed by the overlay, not re-keyed per sleeve."],
-    ["Premium tax management as the service", "Halverston AM already prices PTM at 3–20 bps per the ADV. Extending it across sleeves and accounts is the product."],
+    ["Premium tax management as the service", "Our AM already prices PTM at 3–20 bps per our ADV. Extending it across sleeves and accounts is the product."],
     ["Routing that respects discretion", "Proposals go to the overlay, the FA or the client according to SWP and AAP rules, with e-signature for client approvals."],
   ];
   return (
