@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Frutiger", "Frutiger for UBS", "Source Sans 3 Variable", "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+
+  --color-ink: #111111;
+  --color-ink-2: #5a5d5c;
+  --color-ink-3: #8e8d83;
+  --color-line: #e5e3dc;
+  --color-line-strong: #cccabc;
+  --color-canvas: #f7f6f2;
+  --color-panel: #f2f1ec;
+  --color-sand: #ecebe4;
+  --color-red: #e60000;
+  --color-red-dark: #bd000c;
+  --color-red-tint: #fdeceb;
+  --color-good: #2e6b4f;
+  --color-good-tint: #e8f1ec;
+  --color-warn: #b25e00;
+  --color-warn-tint: #fbf0e3;
+}
+
+html, body { background: var(--color-canvas); color: var(--color-ink); }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; font-feature-settings: "tnum" 0; }
+.num { font-variant-numeric: tabular-nums; }
+::selection { background: #fdd7d5; }
+
+/* Thin scrollbars inside panels */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.fade-in { animation: fadeIn 220ms ease-out both; }
