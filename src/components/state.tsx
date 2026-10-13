@@ -7,7 +7,8 @@ import { applyActions, generateProposal, type Proposal } from "@/lib/engine/prop
 import type { Household } from "@/lib/types";
 
 export type Screen = "overview" | "holdings" | "tax" | "proposal";
-export type HoldingsMode = "account" | "security";
+export type HoldingsMode = "account" | "class" | "security";
+export type HoldingsView = "current" | "after";
 export type ApprovalState = "draft" | "sent";
 
 interface AppState {
@@ -18,6 +19,8 @@ interface AppState {
   setScreen: (s: Screen) => void;
   holdingsMode: HoldingsMode;
   setHoldingsMode: (m: HoldingsMode) => void;
+  holdingsView: HoldingsView;
+  setHoldingsView: (v: HoldingsView) => void;
   expanded: Set<string>;
   toggle: (key: string, open?: boolean) => void;
   selected: Set<string>;
@@ -39,6 +42,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const proposal = useMemo(() => generateProposal(household, snap), [household, snap]);
   const [screen, setScreenRaw] = useState<Screen>("overview");
   const [holdingsMode, setHoldingsMode] = useState<HoldingsMode>("account");
+  const [holdingsView, setHoldingsView] = useState<HoldingsView>("current");
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(household.accounts.map((a) => a.id)));
   const [selected, setSelected] = useState<Set<string>>(() => new Set(proposal.actions.map((a) => a.id)));
   const [approval, setApproval] = useState<ApprovalState>("draft");
@@ -61,6 +65,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     },
     holdingsMode,
     setHoldingsMode,
+    holdingsView,
+    setHoldingsView,
     expanded,
     toggle: (key, open) =>
       setExpanded((prev) => {

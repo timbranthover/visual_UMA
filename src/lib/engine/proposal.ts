@@ -203,6 +203,7 @@ function harvestAction(h: Household, snap: Snapshot, exclude: Set<string>): Acti
     restrictions.push({ securityId: c.lot.securityId, label: `No purchases of ${sec(c.lot.securityId).ticker} in any sleeve of any household account`, until });
   }
   const blocked = harvestCandidates(snap).filter((c) => c.status === "Blocked");
+  const elsewhere = harvestCandidates(snap).filter((c) => c.status === "Clear" && exclude.has(c.lot.id));
   return {
     id: "harvest",
     kind: "harvest",
@@ -214,6 +215,7 @@ function harvestAction(h: Household, snap: Snapshot, exclude: Set<string>): Acti
       blocked.length
         ? `${blocked.length} other loss ${blocked.length === 1 ? "lot was" : "lots were"} held back because of recent purchases elsewhere in the household.`
         : "No candidates were blocked by recent purchases.",
+      ...elsewhere.map((c) => `The ${sec(c.lot.securityId).ticker} loss is realized by the asset-location swap instead, so it is not sold twice.`),
     ],
     trades,
     cashMoves: [],

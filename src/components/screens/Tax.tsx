@@ -3,19 +3,18 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useApp } from "../state";
 import { Card, Gain, Meter, PageHeader, Status, Td, Th } from "../ui";
-import { estTax, proposalRealized } from "@/lib/engine/proposal";
+import { estTax } from "@/lib/engine/proposal";
 import { findAccount, findSleeve, sec } from "@/lib/engine/snapshot";
 import { budgetView, harvestCandidates, locationFindings } from "@/lib/engine/tax";
 import { day, pct, qty, usd } from "@/lib/format";
 
 export default function Tax() {
-  const { household: h, snap, proposal, setScreen } = useApp();
+  const { household: h, snap, afterHousehold, selected, setScreen } = useApp();
   const b = budgetView(h);
   const cands = harvestCandidates(snap);
   const loc = locationFindings(snap);
   const taxNow = estTax(h, b.realized);
-  const withProposal = budgetView(h, proposalRealized(proposal.actions));
-  const taxAfter = estTax(h, withProposal.realized);
+  const taxAfter = estTax(h, budgetView(afterHousehold).realized);
   const taxable = snap.accounts.filter((a) => a.account.taxTreatment === "Taxable");
 
   const unrealizedBy = (acctId: string) => {
@@ -92,9 +91,9 @@ export default function Tax() {
               Federal, at {pct(h.policy.taxRates.LT, 1)} long-term and {pct(h.policy.taxRates.ST, 1)} short-term, including net investment income tax.
             </div>
             <div className="mt-5 border-t border-line pt-4">
-              <div className="text-[12.5px] text-ink-2">With the household proposal</div>
+              <div className="text-[12.5px] text-ink-2">With the proposal ({selected.size} {selected.size === 1 ? "move" : "moves"} selected)</div>
               <div className="num mt-1 text-[22px] font-light text-ink">{usd(taxAfter)}</div>
-              <div className="mt-1 text-[12.5px] text-ink-2">Even after trimming Apple.</div>
+              <div className="mt-1 text-[12.5px] text-ink-2">{selected.has("concentration") ? "Including the Apple trim." : "Apple trim not selected."}</div>
               <button onClick={() => setScreen("proposal")} className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-ink hover:text-red-dark">
                 Open proposal <ArrowRight size={13} />
               </button>

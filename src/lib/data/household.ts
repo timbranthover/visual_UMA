@@ -134,7 +134,7 @@ const danielIra: Account = {
     sleeve("S8", "A3", "Funds & ETFs", "Funds", "Advisor-selected funds and ETFs", "Financial Advisor", "Advisor directed", "FA", 38_600, [
       lot("VOO", 3000, 300.0, "2020-11-16"),
       lot("IJH", 9000, 52.0, "2021-04-12"),
-      lot("VEA", 7000, 44.0, "2021-04-12"),
+      lot("VEA", 5500, 44.0, "2021-04-12"),
       lot("BND", 9500, 73.0, "2023-07-10"),
       lot("VWO", 5000, 41.0, "2021-04-12"),
     ]),

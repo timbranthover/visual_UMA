@@ -3,6 +3,8 @@ import { usd, pct } from "../format";
 import { findAccount, memberFirstName, sec, type Snapshot } from "./snapshot";
 import { budgetView, harvestCandidates, locationFindings } from "./tax";
 
+const lc = (s: string) => (s.startsWith("US") ? s : s.charAt(0).toLowerCase() + s.slice(1));
+
 export interface Insight {
   id: string;
   severity: "breach" | "warn" | "ok";
@@ -33,12 +35,12 @@ export function insights(snap: Snapshot): Insight[] {
   const drifted = snap.allocation.filter((a) => a.breach).sort((a, b) => Math.abs(b.drift) - Math.abs(a.drift));
   if (drifted.length) {
     const top = drifted[0];
-    const unders = snap.allocation.filter((a) => a.drift < -0.015 && a.id !== "CASH").sort((a, b) => a.drift - b.drift).slice(0, 2);
+    const fmt = (r: (typeof drifted)[number]) => `${lc(assetClassShort(r.id))} ${pct(Math.abs(r.drift))} ${r.drift > 0 ? "over" : "under"}`;
     out.push({
       id: "drift",
       severity: "breach",
-      title: `${assetClassShort(top.id)} is ${pct(Math.abs(top.drift))} ${top.drift > 0 ? "over" : "under"} target`,
-      detail: `Visible only at the person level. ${unders.map((u) => `${assetClassShort(u.id)} ${pct(Math.abs(u.drift))} under`).join(", ")}.`,
+      title: drifted.length === 1 ? `${assetClassShort(top.id)} is ${pct(Math.abs(top.drift))} ${top.drift > 0 ? "over" : "under"} target` : `${drifted.length} asset classes outside the ±${pct(h.policy.driftBand, 0)} band`,
+      detail: `${drifted.map(fmt).join(", ").replace(/^./, (c) => c.toUpperCase())}. Only visible when every account is added up for the person.`,
       screen: "proposal",
       cta: "See the rebalance",
     });

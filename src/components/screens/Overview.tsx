@@ -9,7 +9,13 @@ import { budgetView } from "@/lib/engine/tax";
 import { day, pct, usd } from "@/lib/format";
 
 export default function Overview() {
-  const { household: h, snap, setScreen, setHoldingsMode } = useApp();
+  const { household: h, snap, setScreen, setHoldingsMode, setHoldingsView, toggle } = useApp();
+  const openClass = (id: string) => {
+    setHoldingsView("current");
+    setHoldingsMode("class");
+    toggle(`c:${id}`, true);
+    setScreen("holdings");
+  };
   const taxable = snap.accounts.filter((a) => a.account.taxTreatment === "Taxable");
   const unrealized = taxable.reduce((a, x) => a + x.gain, 0);
   const b = budgetView(h);
@@ -62,7 +68,7 @@ export default function Overview() {
               <div className="text-right">Drift</div>
             </div>
             {snap.allocation.map((r) => (
-              <div key={r.id} className="grid grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)_64px_64px_70px] items-center gap-x-4 border-b border-line py-[11px] text-[13.5px] last:border-0" title={`${assetClassLabel(r.id)}: ${usd(r.value)}`}>
+              <button key={r.id} onClick={() => openClass(r.id)} className="grid w-full grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)_64px_64px_70px] items-center gap-x-4 border-b border-line py-[11px] text-left text-[13.5px] transition-colors hover:bg-canvas" title={`${assetClassLabel(r.id)}: ${usd(r.value)}. Open the positions behind this number.`}>
                 <div className="truncate text-ink">{assetClassShort(r.id)}</div>
                 <Meter value={r.pct} max={maxPct} marker={r.target} />
                 <div className="num text-right text-ink">{pct(r.pct)}</div>
@@ -71,9 +77,9 @@ export default function Overview() {
                   {r.breach && <AlertTriangle size={12} className="mr-1 inline -translate-y-px" />}
                   {pct(r.drift, 1, true)}
                 </div>
-              </div>
+              </button>
             ))}
-            <p className="mt-4 text-[12px] leading-snug text-ink-3">Funds count in their own asset class. Issuer concentration uses fund look-through, shown under Holdings.</p>
+            <p className="mt-4 text-[12px] leading-snug text-ink-3">Click any row to see the positions behind it. Funds count in their own asset class; issuer concentration uses fund look-through.</p>
           </div>
         </Card>
 
@@ -83,7 +89,11 @@ export default function Overview() {
               <li key={f.id}>
                 <button
                   onClick={() => {
-                    if (f.id === "concentration") setHoldingsMode("security");
+                    if (f.id === "concentration") {
+                      setHoldingsView("current");
+                      setHoldingsMode("security");
+                      toggle("x:AAPL", true);
+                    }
                     setScreen(f.screen);
                   }}
                   className="group flex w-full gap-3 rounded-[4px] px-3 py-3 text-left transition-colors hover:bg-canvas"

@@ -15,6 +15,7 @@ interface Step {
   target?: string;
   screen?: Screen;
   mode?: HoldingsMode;
+  view?: "current" | "after";
   open?: string[];
   close?: string[];
   wide?: boolean;
@@ -84,7 +85,7 @@ function Pipes() {
 
 export default function Tour() {
   const app = useApp();
-  const { tourOpen, setTourOpen, setScreen, setHoldingsMode, toggle, snap, household: h, proposal, setApproval } = app;
+  const { tourOpen, setTourOpen, setScreen, setHoldingsMode, setHoldingsView, after, toggle, snap, household: h, proposal, setApproval } = app;
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
 
@@ -142,6 +143,7 @@ export default function Tour() {
           <>
             <P>SMA sleeves, ETFs, individual munis and sleeve cash, combined into one person-level allocation and compared with one target.</P>
             <P>US large cap is <B>{pct(usLarge.drift)} over target</B>. Each account looks reasonable on its own; only the household view shows the drift.</P>
+            <P>Every row is clickable and opens the exact positions that add up to it.</P>
           </>
         ),
       },
@@ -262,6 +264,20 @@ export default function Tour() {
         ),
       },
       {
+        title: "See it land in the holdings",
+        target: "tour-aapl",
+        screen: "holdings",
+        mode: "security",
+        view: "after",
+        open: ["x:AAPL"],
+        body: (
+          <>
+            <P>Holdings now shows the projected after-state. Apple is <B>{pct(after.exposures.find((e) => e.security.id === "AAPL")?.pct ?? 0)}</B> of the household, back within the limit. Claire&apos;s dividend sleeve no longer holds it, and the Joint growth sleeve keeps only its lowest-cost shares.</P>
+            <P>The same engine powers every screen, so the overview, holdings, tax view and proposal always agree.</P>
+          </>
+        ),
+      },
+      {
         title: "What it takes to make this real",
         wide: true,
         screen: "overview",
@@ -274,7 +290,7 @@ export default function Tour() {
         ),
       },
     ];
-  }, [snap, h, proposal]);
+  }, [snap, h, proposal, after]);
 
   const step = steps[i];
 
@@ -291,6 +307,7 @@ export default function Tour() {
     if (!tourOpen) return;
     if (step.screen) setScreen(step.screen);
     if (step.mode) setHoldingsMode(step.mode);
+    if (step.screen === "holdings") setHoldingsView(step.view ?? "current");
     step.open?.forEach((k) => toggle(k, true));
     step.close?.forEach((k) => toggle(k, false));
     if (step.screen === "proposal") setApproval("draft");
@@ -319,7 +336,9 @@ export default function Tour() {
       };
       if (scroll) {
         const r = union();
-        const top = window.scrollY + r.top - Math.max(80, (window.innerHeight - Math.min(r.height, window.innerHeight - 160)) / 2);
+        // Short targets sit near the top so the card fits below; tall ones are centred.
+        const offset = r.height + 400 < window.innerHeight - 96 ? 96 : Math.max(80, (window.innerHeight - Math.min(r.height, window.innerHeight - 160)) / 2);
+        const top = window.scrollY + r.top - offset;
         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
         setTimeout(() => setRect(union()), 380);
       }
@@ -366,12 +385,12 @@ export default function Tour() {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const gap = 18;
-    const estH = 360;
+    const estH = 380;
     if (spot.left + spot.width + gap + W < vw - 16) {
       cardStyle = { left: spot.left + spot.width + gap, top: clamp(spot.top, 16, vh - estH - 16), width: W };
     } else if (spot.left - gap - W > 16) {
       cardStyle = { left: spot.left - gap - W, top: clamp(spot.top, 16, vh - estH - 16), width: W };
-    } else if (spot.top + spot.height + gap + 260 < vh) {
+    } else if (spot.top + spot.height + gap + estH < vh) {
       cardStyle = { left: clamp(spot.left, 16, vw - W - 16), top: spot.top + spot.height + gap, width: W };
     } else {
       cardStyle = { left: clamp(spot.left + spot.width - W, 16, vw - W - 16), top: Math.max(16, spot.top - gap - estH), width: W };
