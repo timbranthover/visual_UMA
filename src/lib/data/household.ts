@@ -4,7 +4,7 @@ import type { Account, Authority, Household, Sleeve, TaxLot } from "../types";
  * Sample household: the Whitfields (fictional). Four accounts across SWP and
  * AAP, nine sleeves, individual tax lots. Structured the way SWP / AAP accounts
  * are structured today (single account, sub-accounts by strategy), with the
- * future-state assumption that every sleeve's lots are visible to UBS systems.
+ * future-state assumption that every sleeve's lots are visible to firm systems.
  */
 
 let lotSeq = 0;
@@ -38,7 +38,7 @@ const joint: Account = {
   program: "AAP",
   number: "••• 4821",
   sleeves: [
-    sleeve("S1", "A1", "US Large Cap Growth", "SMA", "Concentrated US growth equity", "Model manager · UBS AM overlay", "Model Delivery", "OVERLAY", 22_400, [
+    sleeve("S1", "A1", "US Large Cap Growth", "SMA", "Concentrated US growth equity", "Model manager · Halverston AM overlay", "Model Delivery", "OVERLAY", 22_400, [
       lot("AAPL", 1800, 38.5, "2016-03-14"),
       lot("AAPL", 1100, 142.1, "2021-11-02"),
       lot("MSFT", 800, 212.0, "2020-08-18"),
@@ -51,7 +51,7 @@ const joint: Account = {
       lot("V", 400, 205.0, "2021-09-27"),
       lot("COST", 120, 590.0, "2023-05-08"),
     ]),
-    sleeve("S2", "A1", "US Large Cap Value", "SMA", "US value equity", "Model manager · UBS AM overlay", "Model Delivery", "OVERLAY", 15_100, [
+    sleeve("S2", "A1", "US Large Cap Value", "SMA", "US value equity", "Model manager · Halverston AM overlay", "Model Delivery", "OVERLAY", 15_100, [
       lot("JPM", 1300, 138.0, "2021-01-19"),
       lot("BRK.B", 500, 330.0, "2023-03-20"),
       lot("JNJ", 1000, 162.0, "2022-04-04"),
@@ -63,7 +63,7 @@ const joint: Account = {
       lot("PEP", 700, 168.0, "2023-04-24"),
       lot("HD", 250, 290.0, "2022-09-26"),
     ]),
-    sleeve("S3", "A1", "International ADR", "SMA", "Developed-market ADR equity", "Model manager · UBS AM overlay", "Model Delivery", "OVERLAY", 10_300, [
+    sleeve("S3", "A1", "International ADR", "SMA", "Developed-market ADR equity", "Model manager · Halverston AM overlay", "Model Delivery", "OVERLAY", 10_300, [
       lot("ASML", 260, 610.0, "2022-11-07"),
       lot("SAP", 700, 140.0, "2023-06-12"),
       lot("NVO", 2100, 128.0, "2024-06-10"),
@@ -99,7 +99,7 @@ const claire: Account = {
   program: "SWP",
   number: "••• 7356",
   sleeves: [
-    sleeve("S6", "A2", "US Dividend Equity", "SMA", "US dividend growth equity", "Model manager · UBS AM overlay", "Model Delivery", "OVERLAY", 12_800, [
+    sleeve("S6", "A2", "US Dividend Equity", "SMA", "US dividend growth equity", "Model manager · Halverston AM overlay", "Model Delivery", "OVERLAY", 12_800, [
       lot("AAPL", 800, 182.0, "2023-07-20"),
       lot("AAPL", 1000, 228.0, "2025-02-10"),
       lot("MSFT", 300, 410.0, "2024-03-18"),

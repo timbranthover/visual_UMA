@@ -58,10 +58,10 @@ function Hierarchy() {
 
 function Pipes() {
   const items = [
-    ["Sleeve-level data in UBS systems", "Lots, cash and models for every SWP / AAP sub-account, fed from the trading platform and overlay into UBS records, so advisors, reporting and billing see the same thing."],
+    ["Sleeve-level data in firm systems", "Lots, cash and models for every SWP / AAP sub-account, fed from the trading platform and overlay into firm records, so advisors, reporting and billing see the same thing."],
     ["One security master with look-through", "Every holding maps to one record; funds carry constituents. That is what turns 'four positions' into 'one Apple exposure'."],
     ["Household policy objects", "Target, gain budget and restrictions stored once at the person level and consumed by the overlay, not re-keyed per sleeve."],
-    ["Premium tax management as the service", "UBS AM already prices PTM at 3–20 bps per the ADV. Extending it across sleeves and accounts is the product."],
+    ["Premium tax management as the service", "Halverston AM already prices PTM at 3–20 bps per the ADV. Extending it across sleeves and accounts is the product."],
     ["Routing that respects discretion", "Proposals go to the overlay, the FA or the client according to SWP and AAP rules, with e-signature for client approvals."],
   ];
   return (
@@ -104,7 +104,7 @@ export default function Tour() {
         body: (
           <>
             <P>
-              This is a working concept of what Strategic Wealth Portfolio and Advisor Allocation Program clients could look like when every sleeve is visible to UBS systems.
+              This is a working concept of what Strategic Wealth Portfolio and Advisor Allocation Program clients could look like when every sleeve is visible to the firm&apos;s systems.
               The client is a sample household: <B>{h.members.map((m) => m.firstName).join(" and ")} Whitfield, {usd(snap.total, { compact: true })} across {h.accounts.length} accounts and {snap.sleeves.length} sleeves</B>.
             </P>
             <P>Nothing on screen is typed in. Every figure is calculated live from individual tax lots using this data model:</P>
@@ -153,9 +153,9 @@ export default function Tour() {
         screen: "overview",
         body: (
           <>
-            <P>Each sub-account shows its structure and who may trade it, following the program rules in the UBS Form ADV:</P>
+            <P>Each sub-account shows its structure and who may trade it, following the program rules in the firm&apos;s Form ADV:</P>
             <ul className="mt-2 space-y-1 text-[13px] leading-[1.5] text-[#d9d7cf]">
-              <li><B>Overlay:</B> Model Delivery SMA sleeves, traded by UBS AM</li>
+              <li><B>Overlay:</B> Model Delivery SMA sleeves, traded by Halverston AM</li>
               <li><B>SMA manager:</B> the manager-traded municipal sleeve</li>
               <li><B>Advisor:</B> fund and ETF sleeves in AAP</li>
               <li><B>Client:</B> fund and ETF sleeves in SWP, authorized trade by trade</li>
@@ -258,7 +258,7 @@ export default function Tour() {
         screen: "proposal",
         body: (
           <>
-            <P>The system proposes; it does not override program rules. Overlay trades go to UBS AM, AAP fund trades to the advisor, and SWP changes plus the household restriction to the clients for e-signature.</P>
+            <P>The system proposes; it does not override program rules. Overlay trades go to Halverston AM, AAP fund trades to the advisor, and SWP changes plus the household restriction to the clients for e-signature.</P>
             <P>Try <B>Approve and route</B> after the walkthrough.</P>
           </>
         ),

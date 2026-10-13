@@ -2,7 +2,7 @@
 
 A working concept of a connected UMA, seen through the advisor's eyes: one household, many accounts, many sleeves, one person-level view, and an engine that understands it all.
 
-Built for internal discussion. Sample data only; not a UBS system of record.
+Built for internal discussion. Sample data only; not a system of record. Halverston is a fictional firm.
 
 ## What it shows
 
@@ -25,7 +25,7 @@ Household ─┬─ Members
                      └─ Tax lots ──► Security master (with fund look-through)
 ```
 
-Discretion follows the UBS Form ADV (SWP / AAP, pp. 37–38): Model Delivery SMA sleeves → overlay manager (UBS AM); manager-traded SMA sleeves → SMA manager; AAP fund sleeves → Financial Advisor; SWP fund sleeves → client.
+Discretion follows typical SWP / AAP program rules: Model Delivery SMA sleeves → overlay manager (Halverston AM); manager-traded SMA sleeves → SMA manager; AAP fund sleeves → Financial Advisor; SWP fund sleeves → client.
 
 ## Engine (`src/lib/engine`)
 

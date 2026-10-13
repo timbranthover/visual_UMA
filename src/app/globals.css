@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Frutiger", "Frutiger for UBS", "Source Sans 3 Variable", "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Frutiger", "Source Sans 3 Variable", "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
 
   --color-ink: #111111;
   --color-ink-2: #5a5d5c;

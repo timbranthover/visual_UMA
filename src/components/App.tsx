@@ -42,8 +42,7 @@ function Shell() {
     <div className="min-h-screen">
       <aside className="fixed inset-y-0 left-0 z-20 flex w-[236px] flex-col border-r border-line bg-white">
         <div className="px-6 pt-6 pb-5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/ubs-logo.png" alt="UBS" className="h-[26px] w-auto" />
+          <div className="flex h-[26px] items-center text-[17px] leading-none font-semibold tracking-[0.2em] text-red">HALVERSTON</div>
           <div className="mt-4 text-[15px] font-semibold tracking-[-0.005em] text-ink">Unified Wealth View</div>
           <div className="text-[12px] text-ink-3">Advisor workspace</div>
         </div>
@@ -79,7 +78,7 @@ function Shell() {
         <div className="mt-auto border-t border-line px-6 py-5">
           <div className="text-[13px] font-semibold text-ink">{household.advisor.name}</div>
           <div className="text-[12px] text-ink-2">{household.advisor.title}</div>
-          <div className="mt-3 text-[11px] leading-snug text-ink-3">Concept prototype with sample data. Not a UBS system of record.</div>
+          <div className="mt-3 text-[11px] leading-snug text-ink-3">Concept prototype with sample data. Not a system of record.</div>
         </div>
       </aside>
 

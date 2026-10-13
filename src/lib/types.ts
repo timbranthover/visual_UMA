@@ -62,8 +62,8 @@ export type SleeveKind = "SMA" | "Funds";
 
 /**
  * Who holds trading discretion over a sleeve, per the program rules in the
- * UBS Form ADV (SWP / AAP section, pp. 37–38):
- *  - OVERLAY:      Model Delivery SMA sub-accounts, traded by the overlay manager (UBS AM)
+ * firm's Form ADV (SWP / AAP section):
+ *  - OVERLAY:      Model Delivery SMA sub-accounts, traded by the overlay manager (Halverston AM)
  *  - SMA_MANAGER:  Manager-traded SMA sub-accounts (e.g. fixed income)
  *  - FA:           AAP mutual fund / ETF sub-accounts (Financial Advisor discretion)
  *  - CLIENT:       SWP mutual fund / ETF sub-accounts (client authorizes each trade)

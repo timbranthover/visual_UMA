@@ -220,7 +220,7 @@ function harvestAction(h: Household, snap: Snapshot, exclude: Set<string>): Acti
     trades,
     cashMoves: [],
     restrictions,
-    requirements: [{ authority: "OVERLAY", label: "Premium tax management in SMA sleeves (UBS AM overlay)" }],
+    requirements: [{ authority: "OVERLAY", label: "Premium tax management in SMA sleeves (Halverston AM overlay)" }],
   };
 }
 
@@ -381,7 +381,7 @@ export function proposalRealized(actions: Action[]) {
 }
 
 export const AUTHORITY_LABEL: Record<Authority, string> = {
-  OVERLAY: "Overlay manager · UBS AM",
+  OVERLAY: "Overlay manager · Halverston AM",
   SMA_MANAGER: "SMA manager",
   FA: "Financial Advisor · AAP discretion",
   CLIENT: "Client approval",
